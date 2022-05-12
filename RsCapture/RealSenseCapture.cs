@@ -73,8 +73,11 @@ namespace RsCapture
                         //var colorProfile = profile.GetStream(Stream.Color).Cast<VideoStreamProfile>();
                         //Intrinsics = AlignToColor ? colorProfile.GetIntrinsics() : depthProfile.GetIntrinsics();
 
-                        var depthSensor = pipeline.ActiveProfile.Device.Sensors.Where(s => s.Is(Extension.DepthSensor)).First();
-                        depthSensor.Options[Option.Accuracy].Value = 3;
+                        var depthSensor = pipeline.ActiveProfile.Device.Sensors.Where(s => s.Is(Extension.DepthSensor)).First();                        
+                        if (depthSensor.Options.Supports(Option.Accuracy))
+                        {
+                            depthSensor.Options[Option.Accuracy].Value = 3;
+                        }
                         //
                         //DepthScale = depthSensor.DepthScale;
                         depthSensor.Options[Option.VisualPreset].Value = (float)Rs400VisualPreset.HighAccuracy;
