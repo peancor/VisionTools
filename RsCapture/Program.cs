@@ -74,8 +74,13 @@ app.AddCommand("run", async (RunParameters p) =>
     }
     //Si no arrancamos
     CancellationTokenSource cts = new CancellationTokenSource();
-    await RealSenseCapture.RunCapture(sn, p.Ts, p.Duration, p.Width, p.Height, cts.Token);
+    await RealSenseCapture.RunCapture(sn, p, cts.Token);
 });
+
+AnsiConsole.Write(
+    new FigletText("RsCapture")
+        .LeftAligned()
+        .Color(Color.Lime));
 
 app.Run();
 
@@ -128,5 +133,6 @@ public class RunParameters : ICommandParameterSet
     public int? RoiH { get; set; } = null;
 
     [Option("data")]
+    [HasDefaultValue]
     public string? DataFolder { get; set; } = null;
 }

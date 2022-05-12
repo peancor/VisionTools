@@ -28,11 +28,27 @@ namespace RsCapture
             AnsiConsole.MarkupLine($"[grey]LOG:[/] {message}[grey]...[/]");
         }
 
-        public static async Task RunCapture(string sn, int ts, double duration, int width, int height, CancellationToken ct)
+        public static async Task RunCapture(string sn, RunParameters p, CancellationToken ct)
         {
             DateTime lastCaptureTime = DateTime.MinValue;
             int framesReceived = 0;
             int framesCaptured = 0;
+            int width = p.Width;
+            int height = p.Height;
+            int ts = p.Ts;
+            double duration = p.Duration;
+            //comprobamos el data path
+            var rootPath = "";
+            if (string.IsNullOrEmpty(p.DataFolder) == false && Directory.Exists(p.DataFolder))
+            {
+                rootPath = p.DataFolder;
+            }
+            //Aquí creamos el nuevo data folder
+            var dataPath = Path.Combine(rootPath, DateTime.Now.ToString("yyyyMMdd-HHmmss"));
+            if (Directory.Exists(dataPath) == false)
+            {
+                Directory.CreateDirectory(dataPath);
+            }
 
             await AnsiConsole.Status().StartAsync("Comenzando proceso de captura...", async ctx =>
                 {
@@ -113,8 +129,8 @@ namespace RsCapture
                                     depthDistanceBuffer[i] = depthBuffer[i] * 1000.0f * depthSensor.DepthScale;
                                 }
                                 var arr = np.array(depthDistanceBuffer);
-                                var fn = $"{DateTime.Now.ToString("yyyyMMdd-HHmmss")}.npy";
-                                np.save(fn, arr);
+                                var fn = $"{framesCaptured.ToString("000000")}.npy";
+                                np.save(Path.Combine(dataPath, fn), arr);
                                 framesCaptured++;
                             }
 
