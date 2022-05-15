@@ -12,7 +12,6 @@
     <PackageReference Include="Cocona" Version="2.0.3" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Numpy" Version="3.7.1.28" />
-    <PackageReference Include="OpenCvSharp4.Windows" Version="4.5.5.20211231" />
     <PackageReference Include="Spectre.Console" Version="0.44.0" />
   </ItemGroup>
 
