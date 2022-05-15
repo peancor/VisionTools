@@ -21,7 +21,6 @@ app.AddCommand("list", () =>
 }).WithDescription("list detected realsense devices");
 
 
-
 app.AddCommand("info", async ([Option("sn")] string? sn) =>
 {
     await InfoCommand.RunAsync(sn);
@@ -46,18 +45,3 @@ AnsiConsole.Write(
         .Color(Color.Lime));
 
 app.Run();
-
-//void PrintRunParamsStatus(RunParameters p, out (int, int, int, int)? roiout)
-//{
-//    if ((p.RoiX, p.RoiY, p.RoiW, p.RoiH) is (int, int, int, int) roi)
-//    {
-//        roiout = ((int, int, int, int)?)roi;
-//        AnsiConsole.MarkupLine($"roi: {roi}");
-//    }
-//    else
-//    {
-//        roiout = null;
-//        AnsiConsole.MarkupLine("roi not defined");
-//    }
-//}
-
