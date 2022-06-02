@@ -2,7 +2,7 @@
   "profiles": {
     "RsCapture": {
       "commandName": "Project",
-      "commandLineArgs": "run"
+      "commandLineArgs": "dm"
     }
   }
 }

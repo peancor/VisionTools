@@ -39,6 +39,19 @@ app.AddCommand("run", async (RunParameters p, CoconaAppContext ctx) =>
     }
 }).WithDescription("runs capture");
 
+app.AddCommand("dm", async (DeepMeasureCommandParameters p, CoconaAppContext ctx) =>
+{
+    try
+    {
+        //Si no arrancamos
+        await DeepMeasureCommand.RunCapture(p, ctx);
+    }
+    catch (Exception ex)
+    {
+        ConsoleUtils.WriteErrorMessage(ex.Message);
+    }
+}).WithDescription("takes one measure averaging all frames");
+
 AnsiConsole.Write(
     new FigletText("RsCapture")
         .LeftAligned()
