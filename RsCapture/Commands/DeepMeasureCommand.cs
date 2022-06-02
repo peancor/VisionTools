@@ -138,7 +138,7 @@ namespace RsCapture.Commands
 
                     var ddBuffer = Array.ConvertAll(caBuffer, x => (double)x);
                     var arr = np.array(ddBuffer);
-                    var fn = $"dm{DateTime.Now.ToString("yyMMddHHmmss")}.npy";
+                    var fn = $"dm from {startTime.ToString("yyMMddHHmmss")} to {DateTime.Now.ToString("yyMMddHHmmss")} ({framesReceived}).npy";
                     np.save(Path.Combine(dataPath, fn), arr);
                 }
             });
